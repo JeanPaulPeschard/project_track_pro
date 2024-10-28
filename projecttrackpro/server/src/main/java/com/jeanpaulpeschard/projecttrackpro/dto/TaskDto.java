@@ -1,9 +1,13 @@
 package com.jeanpaulpeschard.projecttrackpro.dto;
 
+import java.time.LocalDate;
+
 public class TaskDto {
     private String title;
     private String description;
     private String status;
+    
+    private LocalDate dueDate;
 
     // Getter for name
     public String getTitle() {
@@ -33,5 +37,10 @@ public class TaskDto {
     // Setter for description
     public void setStatus(String status) {
         this.status = status;
+    }
+
+     // Getter for LocalDate
+     public LocalDate getDueDate(){
+        return dueDate;
     }
 }
