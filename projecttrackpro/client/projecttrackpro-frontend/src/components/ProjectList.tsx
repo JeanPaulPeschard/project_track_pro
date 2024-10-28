@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { fetchProjects } from '../api/projectApi';
-import { Project } from '../types';
+// ProjectList.tsx
+import React from 'react';
 
-const ProjectList: React.FC = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
+interface Project {
+  id: number;
+  name: string;
+  description: string;
+}
 
-  useEffect(() => {
-    const getProjects = async () => {
-      const data = await fetchProjects();
-      setProjects(data);
-    };
-    getProjects();
-  }, []);
+interface ProjectListProps {
+  projects: Project[];
+}
 
+const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   return (
     <div>
-      <h2>Projects</h2>
-      <ul>
-        {projects.map((project) => (
-          <li key={project.id}>{project.name}</li>
-        ))}
-      </ul>
+      {projects.map((project) => (
+        <div key={project.id}>
+          <h3>{project.name}</h3>
+          <p>{project.description}</p>
+        </div>
+      ))}
     </div>
   );
 };
