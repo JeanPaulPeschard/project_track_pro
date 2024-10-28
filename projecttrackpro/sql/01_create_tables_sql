@@ -1,0 +1,30 @@
+-- Create the database (if not already existing)
+CREATE DATABASE IF NOT EXISTS projecttrackpro;
+USE projecttrackpro;
+
+-- Create projects table
+CREATE TABLE projects (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create tasks table with a foreign key constraint
+CREATE TABLE tasks (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    project_id INT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    status ENUM('To Do', 'In Progress', 'Completed') NOT NULL DEFAULT 'To Do',
+    due_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE
+);
+
+-- Indexing for optimization
+CREATE INDEX idx_project_id ON tasks(project_id);
+CREATE INDEX idx_status ON tasks(status);
+CREATE INDEX idx_due_date ON tasks(due_date);
